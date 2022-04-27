@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Orders</h1>
+    <p>Orders Details</p>
+  </div>
+
+  <div class="table-responsive">
+	  <table class="table table-hover">
+	    <thead>
+	      <tr>
+	        <th>Status</th>
+	        <th>Orders Details</th>
+	        <th>Action</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+  			<% @orders.each do |order| %>
+	      	<tr>
+		        <td><%= order.status %></td>
+		        
+		        <td><%= link_to "Show", order_path(order.id) %></td>
+		        <td><%= link_to "Destroy ", order_path(order.id), data: { turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></td>
+            
+
+
+		      </tr>
+		     <% end %>
+	    </tbody>
+	  </table>
+	</div> 
+</div> 

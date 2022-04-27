@@ -1,0 +1,12 @@
+<%= form_with model: @order do |form| %>
+  <div>
+    <%= form.label :status %><br>
+    <%= form.text_field :status %>
+  </div>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+  
+<% end %>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Menu</h1>
+    <p>Menu Details</p>
+    <p><%= link_to "New Menu", new_menu_path %><br></p>
+  </div>
+
+  <div class="table-responsive">
+	  <table class="table table-hover">
+	    <thead>
+	      <tr>
+	        <th>Name</th>
+	        <th>Price</th>
+	        <th>Select</th>
+	        <th>Quantity</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+  			<% @menus.each do |menu| %>
+	      	<tr>
+		        <td><%= menu.name %></td>
+		        <td><%= menu.price %></td>
+		        <td><%= check_box_tag "menu_id[]", menu.id, false, class: 'selectable' %></td>
+		        <td><div>
+                <button onclick="var less = parseInt($('#qty').val()) - 1; $('#qty').val(less);"></button>
+                <input type="text" id="qty" value="0">
+                <button onclick="var add = parseInt($('#qty').val()) + 1; $('#qty').val(add);">+</button>
+            </div></td>
+		      </tr>
+		     <% end %>
+	    </tbody>
+	  </table>
+	</div> 
+	<%= link_to 'Back', :back %></br>
+	<%= link_to 'Confim Order', :back %>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+  const minus = $('.quantity__minus');
+  const plus = $('.quantity__plus');
+  const input = $('.quantity__input');
+  minus.click(function(e) {
+    e.preventDefault();
+    var value = input.val();
+    if (value > 1) {
+      value--;
+    }
+    input.val(value);
+  });
+  
+  plus.click(function(e) {
+    e.preventDefault();
+    var value = input.val();
+    value++;
+    input.val(value);
+  })
+});
+</script>
+
+

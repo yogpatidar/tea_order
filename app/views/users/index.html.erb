@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Users</h1>
+    <p>User Details</p>
+   	<p><%= link_to "Menu", menus_path %><br></p>
+   	<p><%= link_to "My Order", orders_path %><br></p>
+  </div>
+
+  <div class="table-responsive">
+	  <table class="table table-hover">
+	    <thead>
+	      <tr>
+	        <th>Firstname</th>
+	        <th>Email</th>
+	        <th>Mobile</th>
+	        <th>Gender</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+  			<% @users.each do |user| %>
+	      	<tr>
+		        <td><%= user.fname %></td>
+		        <td><%= user.email %></td>
+		        <td><%= user.mobile %></td>
+		        <td><%= user.gender %></td>
+
+		        <td><%= link_to "Edit", edit_user_path(user.id) %></td>
+		        <td><%= link_to "Show", user_path(user.id) %></td>
+		        <td><%= link_to "Destroy", user_path(user.id), data: { turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></td>
+
+		      </tr>
+		     <% end %>
+	    </tbody>
+	  </table>
+	</div> 
+
+ 
