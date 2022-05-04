@@ -1,0 +1,11 @@
+<%= form_with model: @order_menu do |form| %>
+
+  <div>
+    <%= form.label :FullName %><br>
+    <%= form.text_field :fname %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

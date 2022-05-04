@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   resources :shop_menus
   resources :sessions
   resources :order_menus
+  # resources :sessions
   
-  delete "logout", to: "sessions#logout"
+  delete "logout", to: "sessions#destroy"
  
 end

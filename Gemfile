@@ -14,7 +14,6 @@ gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 
-# gem "devise"
 
 # Bootstrap
   gem "bootstrap"
@@ -90,3 +89,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "hotwire-rails", "~> 0.1.3"

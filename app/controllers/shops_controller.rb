@@ -1,4 +1,5 @@
 class ShopsController < ApplicationController
+  protect_from_forgery with: :null_session
   before_action :require_user_logged_in!, only:[:show, :index]
   
   def index
@@ -6,7 +7,8 @@ class ShopsController < ApplicationController
   end
 
   def show
-     @shop = Shop.find_by(id: params[:id])
+    binding.pry
+    @shop = Shop.find_by(id: params[:id])
   end
 
   def new
@@ -39,7 +41,6 @@ class ShopsController < ApplicationController
   def destroy
     @shop = Shop.find_by(params[:id])
     @shop.destroy
-
     redirect_to root_path, status: :see_other
   end
 

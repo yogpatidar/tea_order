@@ -1,4 +1,6 @@
 class MenusController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def index
     @menus = Menu.all 
   end
@@ -12,7 +14,6 @@ class MenusController < ApplicationController
   end
 
   def create
-    @menu = @order.order_items.find_or_initialize_by(product_id: params[:product_id])
     @menu = Menu.new(menu_params)
     if @menu.save
       redirect_to @menu
@@ -38,12 +39,12 @@ class MenusController < ApplicationController
   def destroy
     @menu = User.find(params[:id])
     @menu.destroy
-
     redirect_to root_path, status: :see_other
   end
  
   private
     def menu_params
-      params.require(:menu).permit(:name, :price, :quantity)
+      params.require(:menu).permit(:menu_id, :name, :price, :quantity)
     end  
 end
+

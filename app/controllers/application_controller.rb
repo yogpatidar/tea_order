@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :current_object
   add_flash_types :info, :error, :warning
-
+  
   def already_logged_in?
     @current_object.present?
   end

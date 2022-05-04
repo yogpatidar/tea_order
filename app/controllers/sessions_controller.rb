@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
   # before_action :require_user_logged_in!
 
   def new
-   
   end
 
   def create
@@ -37,7 +36,10 @@ class SessionsController < ApplicationController
     end
   end
 
-  def logout
+  
+
+  def destroy
+    binding.pry
     session[:login_id] = nil
     session[:login_type] = nil
     redirect_to root_path, notice: 'Logged Out'
