@@ -2,6 +2,8 @@
   <div class="jumbotron">
     <h1>Orders</h1>
     <p>Orders Details</p>
+    <p><%= link_to "Menu", menus_path %><br></p>
+     <td><%= link_to "create menu", new_menu_path %></td>
   </div>
 
   <div class="table-responsive">
@@ -22,9 +24,6 @@
 		        <td><%= link_to "Destroy ", order_path(order.id), data: { turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %></td>
-            
-
-
 		      </tr>
 		     <% end %>
 	    </tbody>

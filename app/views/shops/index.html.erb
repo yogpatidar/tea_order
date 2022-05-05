@@ -9,8 +9,6 @@
 	      <tr>
 	        <th>Shop Name</th>
 	        <th>Action</th>
-	        <th>Action</th>
-	        <th>Action</th>
 	      </tr>
 	      
 	    </thead>
@@ -18,12 +16,7 @@
   				<% @shops.each do |shop| %>
 	      	<tr>
 		        <td><%= shop.name %></td>
-		        <td><%= link_to "Edit", edit_shop_path(shop.id) %></td>
-		        <td><%= link_to "Show", menus_path %></td>
-		        <td><%= link_to "Destroy", shop_path(shop.id), data: { turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></td>
-
+		        <td><%= link_to "Menu Show", shop_path(shop.id) %></td>
 		      </tr>
 		     <% end %>
 		    </tbody>

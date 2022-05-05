@@ -3,7 +3,7 @@
   <div class="jumbotron">
     <h1>Menu</h1>
     <p>Menu Details</p>
-    <p><%= link_to "New Menu", new_menu_path %><br></p>
+    <%= link_to 'create menu',new_menu_path %>
   </div>
 
   <div class="table-responsive">
@@ -12,8 +12,9 @@
 	      <tr>
 	        <th>Name</th>
 	        <th>Price</th>
-	        <th>Select</th>
-	        <th>Quantity</th>
+	        <th>Action</th>
+	        <th>Action</th>
+	        <th>Action</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -21,8 +22,13 @@
 	      	<tr>
 						<td><%= menu.name  %></td>
 						<td><%= menu.price %></td>
-						<td><%= check_box_tag 'select-menu', 'yes', false, class: 'check-menu', id: "menuitem-#{menu.id}", data: {menu_id: menu.id} %><td>
-					  <td><%= number_field :quantity, min: 1, max: 20, id: "menu#{menu.id}qauntity", class: 'qauntity' %><td>
+			
+            <td><%= link_to "Edit", edit_menu_path(menu.id) %></td>
+		        <td><%= link_to "Show", menu_path(menu.id) %></td>
+		        <td><%= link_to "Destroy", menu_path(menu.id), data: { turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></td>
+
 	        </tr>
 		    <% end %>
 	    </tbody>

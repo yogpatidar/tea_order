@@ -15,6 +15,9 @@ gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
 
 
+# devise
+  gem 'devise'
+
 # Bootstrap
   gem "bootstrap"
 

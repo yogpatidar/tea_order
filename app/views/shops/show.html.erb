@@ -1,6 +1,5 @@
 <div class="container">
   <div class="jumbotron">
-   <h1>Show</h1>
      <p><%= @shop.name %></p>
      <p><%= @shop.email %></p>
      <p><%= @shop.city %></p>
@@ -8,6 +7,54 @@
      <p><%= @shop.pin_code %></p>
      <p><%= @shop.phone %></p>
    </div>
+   <h2>Shop </h2>
+   <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Select</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @menus.each do |menu| %>
+          <tr>
+            <td><%= menu.name  %></td>
+            <td><%= menu.price %></td>
+            <td><%= check_box_tag 'select-menu', 'yes', false, class: 'check-menu', id: "menuitem-#{menu.id}", data: {menu_id: menu.id} %><td>
+            <td><%= number_field :quantity, min: 1, max: 20, id: "menu#{menu.id}qauntity", class: 'qauntity' %><td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div> 
+
    <%= link_to 'Back', :back %>
+   <%= button_tag :confirm_order, id: 'confirmOrder' %>
 </div>
 
+<!-- <script>
+  $(document).ready(function() {
+    // $('#confirmOrder').on('click', function(){
+      
+    // });
+    data = []
+    $('.check-menu').on('click', function(){
+      menu_id = $(this).data('menu-id')
+      data.push({menu_id: menu_id, quantity: 1})
+      debugger
+      $.ajax({
+        type: "POST",
+        url: "/orders",
+        data: data,
+        dataType: "script",
+        encode: true,
+      }).done(function (data) {
+        console.log(data);
+      });
+
+    });
+  })
+</script> -->

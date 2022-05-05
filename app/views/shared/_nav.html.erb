@@ -13,8 +13,12 @@
         <a class="nav-link" href="#">About</a>
       </li>
       <% if @current_object.present?%>
-        <li><%= link_to "logout", logout_path, method: :delete, data: {turbo: false}, class: "btn btn-danger ml-3" %></li>
+        <li><%= link_to "logout", logout_path, data: {turbo_method: :delete}, class: "btn btn-danger ml-3" %></li>
       <% end %>
+      <ul>
+        <li>
+        </li>
+      </ul>
     </ul>
   </div>
 </nav>

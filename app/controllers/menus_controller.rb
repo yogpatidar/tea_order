@@ -14,8 +14,10 @@ class MenusController < ApplicationController
   end
 
   def create
+    @shop_id = @current_object.id
     @menu = Menu.new(menu_params)
     if @menu.save
+      ShopMenu.create(shop_id: @shop_id,menu_id: @menu.id)
       redirect_to @menu
     else
       render :new, status: :unprocessable_entity
@@ -41,6 +43,7 @@ class MenusController < ApplicationController
     @menu.destroy
     redirect_to root_path, status: :see_other
   end
+ 
  
   private
     def menu_params

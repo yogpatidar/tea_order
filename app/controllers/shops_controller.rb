@@ -7,8 +7,8 @@ class ShopsController < ApplicationController
   end
 
   def show
-    binding.pry
     @shop = Shop.find_by(id: params[:id])
+    @menus = @shop.menus
   end
 
   def new
