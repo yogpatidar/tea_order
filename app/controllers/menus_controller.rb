@@ -2,7 +2,7 @@ class MenusController < ApplicationController
   protect_from_forgery with: :null_session
 
   def index
-    @menus = Menu.all 
+    @menus = @current_object.menus
   end
 
   def show

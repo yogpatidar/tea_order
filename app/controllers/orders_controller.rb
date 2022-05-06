@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   protect_from_forgery with: :null_session
   #before_action :authenticate_user!
-  before_action :set_order , only: [:show, :edit, :update, :destroy]
+  # before_action :set_order , only: [:show, :edit, :update, :destroy]
   
   def index
     @orders = Order.all
@@ -9,15 +9,16 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
+  
   end
 
   def new
-    @order = Order.new
-    @shop_id = params[:shop_id]  
+    @order = Order.new 
   end
 
   def create
-    @order = Order.new(order_params)
+    @user_id = @current_object.id
+    @order = Order.new(order_params.merge(user_id: @user_id))
     if @order.save
       redirect_to @order
     else
@@ -47,7 +48,7 @@ class OrdersController < ApplicationController
   private 
 
     def order_params
-      params.permit(:user_id, :menu_id, :shop_id)
+      params.permit(:user_id, :shop_id)
     end  
 
 end
