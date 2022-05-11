@@ -22,7 +22,6 @@
 	      	<tr>
 						<td><%= menu.name  %></td>
 						<td><%= menu.price %></td>
-			
             <td><%= link_to "Edit", edit_menu_path(menu.id) %></td>
 		        <td><%= link_to "Show", menu_path(menu.id) %></td>
 		        <td><%= link_to "Destroy", menu_path(menu.id), data: { turbo_method: :delete,

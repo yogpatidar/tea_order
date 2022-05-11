@@ -9,6 +9,8 @@ class ShopsController < ApplicationController
   def show
     @shop = Shop.find_by(id: params[:id])
     @menus = @shop.menus
+    @order = Order.new
+    @order.order_menus.build
   end
 
   def new

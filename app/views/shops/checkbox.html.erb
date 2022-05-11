@@ -1,0 +1,302 @@
+<table border=1>
+  <tr class="row-select">
+    <td class="check">
+      <input type="checkbox" />
+    </td>
+    <td class="id">12</td>
+    <td class="name">Jones</td>
+  </tr>
+
+  <tr class="row-select">
+    <td class="check">
+      <input type="checkbox" />
+    </td>
+    <td class="id">10</td>
+    <td class="name">Joseph</td>
+  </tr>
+</table>
+<button id="btnSelectAll">Select all</button>
+<button id="btnSubmit">Get Value</button>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  
+$(document).ready(function() {
+
+  $('#btnSubmit').click(function() {
+
+    $('.row-select input:checked').each(function() {
+      var id, name;
+      id = $(this).closest('tr').find('.id').html();
+      name = $(this).closest('tr').find('.name').html();
+
+      alert('ID: ' + id + " | Name: " + name);
+    });
+
+  });
+
+  $('#btnSelectAll').click(function() {
+
+    $('.row-select input').each(function() {
+      $(this).prop('checked', true);
+    });
+
+  });
+
+});
+</script>
+
+
+
+---------------------------------------------------
+
+
+<div class="container">
+  <div class="jumbotron">
+     <p><%= @shop.name %></p>
+     <p><%= @shop.email %></p>
+     <p><%= @shop.city %></p>
+     <p><%= @shop.address %></p>
+     <p><%= @shop.pin_code %></p>
+     <p><%= @shop.phone %></p>
+   </div>
+   <h2>Shop </h2>
+   <div class="table-responsive">
+    <table class="table table-hover" id="shop_products_list">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Select</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @menus.each do |menu| %>
+          <tr class="row-select">
+            <td>
+              <%#= check_box_tag 'select-menu', 'yes', false, class: 'selected', id: "menuitem-#{menu.id}", data: {menu_id: menu.id} %>
+              <input type="checkbox" />
+            <td>
+            <td class="get_menu_name"><%= menu.name  %></td>
+            <td class="get_menu_price"><%= menu.price %></td>
+            <td><input class="quantity_id" type="number" name="menu_quantity" value="1" max="20" min="1"></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= link_to 'Back', :back %>
+  <%#= button_to :confirm_order, orders_path(:shop_id => @shop.id), id:"btnSubmit" %>
+  <button id="btnSubmit" type="button">Get Value</button>
+</div>
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+
+        <tr class="row-select" id="">
+          <td class="check">
+            <input type="checkbox" />
+          </td>
+          <td class="id">12</td>
+          <td class="name">Jones</td>
+        </tr>
+
+        <tr class="row-select">
+          <td class="check">
+            <input type="checkbox" />
+          </td>
+          <td class="id">10</td>
+          <td class="name">Joseph</td>
+        </tr>
+
+      </table>
+      <button id="btnSelectAll">Select all</button>
+      <button id="btnSubmit1">Get Value</button>
+    </div>
+  </div>
+</div> -->
+
+<script>
+  $(document).ready(function() {
+
+
+    $('#btnSubmit').click(function() {
+      $('#shop_products_list .row-select input:checked').each(function() {
+        var ProId = $(this).closest('tr').find('.get_menu_name').html();
+        var ProName = $(this).closest('tr').find('.get_menu_price').html();
+        var proQuantity = $(this).closest('tr').find('.quantity_id').val();
+        alert('ID: ' + ProId + " | Product Name: " + ProName + " | Product Quantity: " + proQuantity);
+      });
+    });
+    // $('#btnSelectAll').click(function() {
+    //   $('.row-select input').each(function() {
+    //     $(this).prop('checked', true);
+    //   });
+    // });
+
+
+    // ========================================
+
+    // data = []
+    // $('.selected').on('change', function(){
+    //     get_menu = $('#get_menu_name').html();
+    //     get_menu_price = $('#get_menu_price').html();
+    //     shop_id = $('#shop_id').val();
+    //     menu_id = $(this).data('menu_id');
+    //   $(":input").on('keyup mouseup', function () {
+    //     quantity_val = $("#quantity_id").val();
+    //   }).trigger('mouseup');
+    //   debugger
+    //   data.push({'menu_id': menu_id,'menu_name': get_menu,'quantity': quantity_val})
+
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/orders",
+    //     data: JSON.stringify({'menu_id': menu_id,'menu_name': get_menu,'quantity': quantity_val}),
+    //     dataType: "script",
+    //     encode: true,
+    //   }).done(function (data) {
+    //     dataType : "json"
+    //   });
+
+    // });
+  })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+============================================================================================================
+
+
+<div class="container">
+  <div class="jumbotron">
+     <p><%= @shop.name %></p>
+     <p><%= @shop.email %></p>
+     <p><%= @shop.city %></p>
+     <p><%= @shop.address %></p>
+     <p><%= @shop.pin_code %></p>
+     <p><%= @shop.phone %></p>
+   </div>
+   <h2>Shop </h2>
+   <div class="table-responsive">
+    <table class="table table-hover" id="shop_products_list">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Select</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @menus.each do |menu| %>
+          <tr class="row-select">
+            <td>
+              <%= check_box_tag 'select-menu', 'yes', false, class: 'selected', id: "menuitem-#{menu.id}", data: {menu_id: menu.id} %>
+              <input type="checkbox" />
+            <td>
+            <td class="get_menu_name"><%= menu.name  %></td>
+            <td class="get_menu_price"><%= menu.price %></td>
+            <td><input class="quantity_id" type="number" name="menu_quantity" value="1" max="20" min="1"></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= link_to 'Back' :book %>
+  <% button_to :confirm_order, orders_path(:shop_id => @shop.id), id:"btnSubmit",type: "button" %>
+  <!-- <button id="btnSubmit" type="button">Order</button> -->
+</div>
+
+<script>
+  $(document).ready(function() {
+
+    data = []
+    debugger
+    $('#btnSubmit').click(function() {
+      $('#shop_products_list .row-select input:checked').each(function() {
+        var menu_id = $(this).closest('tr').find('.get_menu_name').html();
+        var menu_name = $(this).closest('tr').find('.get_menu_price').html();
+        var quantity_val = $(this).closest('tr').find('.quantity_id').val();
+        // alert('ID: ' + menu_id + " | menu_name: " + menu_name + " | quantity_val: " + quantity_val);
+      });
+
+      data.push({'menu_id': menu_id,'menu_name': get_menu,'quantity': quantity_val})
+      debugger
+      $.ajax({
+        type: "POST",
+        url: "/orders",
+        data: JSON.stringify(data),
+        dataType: "script",
+        encode: true,
+      }).done(function (data) {
+        dataType : "json"
+      });
+
+
+    });
+    // $('#btnSelectAll').click(function() {
+    //   $('.row-select input').each(function() {
+    //     $(this).prop('checked', true);
+    //   });
+    // });
+
+
+    // ========================================
+
+    // data = []
+    // $('.selected').on('change', function(){
+    //     get_menu = $('#get_menu_name').html();
+    //     get_menu_price = $('#get_menu_price').html();
+    //     shop_id = $('#shop_id').val();
+    //     menu_id = $(this).data('menu_id');
+    //   $(":input").on('keyup mouseup', function () {
+    //     quantity_val = $("#quantity_id").val();
+    //   }).trigger('mouseup');
+    //   debugger
+    //   data.push({'menu_id': menu_id,'menu_name': get_menu,'quantity': quantity_val})
+
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/orders",
+    //     data: JSON.stringify({'menu_id': menu_id,'menu_name': get_menu,'quantity': quantity_val}),
+    //     dataType: "script",
+    //     encode: true,
+    //   }).done(function (data) {
+    //     dataType : "json"
+    //   });
+
+    // });
+  })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

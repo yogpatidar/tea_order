@@ -9,53 +9,82 @@
    </div>
    <h2>Shop </h2>
    <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover" id="shop_products_list">
       <thead>
         <tr>
           <th>Name</th>
           <th>Price</th>
           <th>Select</th>
           <th>Quantity</th>
+          <th>Total Amount</th>
         </tr>
       </thead>
       <tbody>
+        <%= form_with model: @order do |f| %>
         <% @menus.each do |menu| %>
-          <tr>
-            <td><%= menu.name  %></td>
-            <td><%= menu.price %></td>
-            <td><%= check_box_tag 'select-menu', 'yes', false, class: 'selected', id: "menuitem-#{menu.id}", data: {menu_id: menu.id} %><td>
-            <td><%= number_field :quantity, min: 1, max: 20, id: "menu#{menu.id}qauntity", class: 'qauntity' %><td>
+          <tr class="row-select">
+            <td class="get_menu_name"><%= menu.name  %></td>
+            <td class="get_menu_price"><%= menu.price %></td>
+            <td><%= f.check_box "menus_attributes[][menu_selected]", {}, 'true', 'false'%>
+            <%= f.hidden_field "menus_attributes[][menu_id]", value: menu.id %></td> 
+            <td> <%= f.number_field "menus_attributes[][quantity]", value: 1, min: 1, max: 20 %></td> 
+          <!--   <td class="pass-quantity col-md-4">
+              <input class="form-control" type="number" value="1" min="1">
+            </td> -->
+            <td> <%= menu.price %></td>
+
+            <td class="get_shop_id"><%= hidden_field_tag 'shop_id', @shop.id  %></td>
           </tr>
+        <% end %>
+        <%= f.submit 'create' %>
         <% end %>
       </tbody>
     </table>
-  </div> 
-
-   <%= link_to 'Back', :back %>
-   <%= button_to :confirm_order, orders_path(:shop_id => @shop.id) %>
+  </div>
+  <%#= link_to 'Back', :book %>
+  <%#= button_to :confirm_order, id:"btnSubmit",type: "button" %>
+  <button id="btnSubmit" type="button">Order</button>
 </div>
 
 <script>
   $(document).ready(function() {
-    // $('#confirmOrder').on('click', function(){
-      
-    // });
-    data = []
-    $('.selected').on('click', function(){
-      menu_id = $(this).data('menu_id')
-      data.push({menu_id: menu_id, quantity: 1})
-      debugger
-      $.ajax({
-        type: "POST",
-        url: "/orders",
-        data: data,
-        dataType: "script",
-        encode: true,
-      }).done(function (data) {
-        console.log(data);
-      });
-
+    debugger
+    $('.pass-quantity input').change(function() {
+      updateQuantity(this);
     });
-  })
+
+    function updateQuantity(quantityInput) {
+      debugger
+      // var productRow = $(quantityInput).parent().parent();
+      // var price = parseFloat(productRow.children('.product-price').text());
+      var price = $('.get_menu_price').html();   
+      var quantity = $(quantityInput).val();
+      // var quantity = $(quantityInput).val();
+      var linePrice = price * quantity;
+      productRow.children('.product-line-price').each(function() {
+        $(this).fadeOut(fadeTime, function() {
+          $(this).text(linePrice.toFixed(2));
+          recalculateCart();
+          $(this).fadeIn(fadeTime);
+        });
+      });
+    }
+  
+  
+  });
 </script>
- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

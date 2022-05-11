@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_26_072236) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_11_101706) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -44,7 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_072236) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quantity"
   end
 
   create_table "order_menus", force: :cascade do |t|
@@ -52,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_26_072236) do
     t.integer "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity"
   end
 
   create_table "orders", force: :cascade do |t|
