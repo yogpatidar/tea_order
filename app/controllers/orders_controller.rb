@@ -54,6 +54,7 @@ class OrdersController < ApplicationController
   private 
 
     def order_params
+      binding.pry
       params["order"]["menus_attributes"].delete_if{|m| m["menu_selected"] == "false"}
       params.permit(:shop_id, menus_attributes: [:menu_id, :quantity])
     end

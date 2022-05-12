@@ -22,69 +22,70 @@
       <tbody>
         <%= form_with model: @order do |f| %>
         <% @menus.each do |menu| %>
-          <tr class="row-select">
+          <tr class="row-select cart">
             <td class="get_menu_name"><%= menu.name  %></td>
-            <td class="get_menu_price"><%= menu.price %></td>
+            <td class="get_menu_price price"><%= menu.price %></td>
             <td><%= f.check_box "menus_attributes[][menu_selected]", {}, 'true', 'false'%>
             <%= f.hidden_field "menus_attributes[][menu_id]", value: menu.id %></td> 
-            <td> <%= f.number_field "menus_attributes[][quantity]", value: 1, min: 1, max: 20 %></td> 
-          <!--   <td class="pass-quantity col-md-4">
-              <input class="form-control" type="number" value="1" min="1">
-            </td> -->
-            <td> <%= menu.price %></td>
+            <td> <%= f.number_field "menus_attributes[][quantity]",class: 'qty', value: 0%></td> 
 
+            <td> <span class="subtotal"><%= f.hidden_field "menus_attributes[][subtotal]" %>0</span></td>    
+             
             <td class="get_shop_id"><%= hidden_field_tag 'shop_id', @shop.id  %></td>
           </tr>
         <% end %>
-        <%= f.submit 'create' %>
+          
+        <tr>
+          <td><span>Total</span></td>
+          <td><span></span></td>
+          <td><span></span></td>
+          <td><span></span></td>
+
+          <td><span id="total">0</span></td>
+        </tr>
+        <%= f.submit 'Order' %>
         <% end %>
       </tbody>
     </table>
   </div>
-  <%#= link_to 'Back', :book %>
-  <%#= button_to :confirm_order, id:"btnSubmit",type: "button" %>
-  <button id="btnSubmit" type="button">Order</button>
 </div>
 
 <script>
-  $(document).ready(function() {
-    debugger
-    $('.pass-quantity input').change(function() {
+  
+$("input:checkbox").change(function() {
+  var ischecked= $(this).is(':checked');
+  if(ischecked){
+    $('.qty').change(function() {
       updateQuantity(this);
     });
 
-    function updateQuantity(quantityInput) {
-      debugger
-      // var productRow = $(quantityInput).parent().parent();
-      // var price = parseFloat(productRow.children('.product-price').text());
-      var price = $('.get_menu_price').html();   
-      var quantity = $(quantityInput).val();
-      // var quantity = $(quantityInput).val();
+    function updateQuantity(qtyInput) {
+      var cartRow = $(qtyInput).closest('tr');
+      var price = parseFloat($('.price', cartRow).text());
+      var quantity = $('.qty', cartRow).val();
+      var subtotal = $('.subtotal', cartRow);
       var linePrice = price * quantity;
-      productRow.children('.product-line-price').each(function() {
-        $(this).fadeOut(fadeTime, function() {
-          $(this).text(linePrice.toFixed(2));
-          recalculateCart();
-          $(this).fadeIn(fadeTime);
-        });
-      });
+      $(subtotal).text(linePrice.toFixed(2));
+      total_calculate() //call
     }
-  
-  
-  });
+
+    function total_calculate() {
+      var total = 0;
+      //loop through subtotal
+      $(".cart .subtotal").each(function() {
+        //chck if not empty
+        var value = $(this).text() != "" ? parseFloat($(this).text()) : 0;
+        total += value; //add that value
+      })
+      //assign to total span
+      $("#total").text(total.toFixed(2))
+    }
+    total_calculate()
+  }    
+  else{
+    alert("uncheckd");
+  }
+});
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
