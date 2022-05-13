@@ -22,9 +22,11 @@ class OrdersController < ApplicationController
     if @order.save 
       all_menu_id = params[:order][:menus_attributes].map{|i| i[:menu_id]}   
       all_menu_quantity = params[:order][:menus_attributes].map{|i| i[:quantity]}
-      all_values = all_menu_id.zip(all_menu_quantity)  
-      all_values.each do |menu_id,quantity|
-        OrderMenu.create(menu_id: menu_id ,order_id:  @order.id,quantity: quantity)
+      all_subtotal = params[:order][:menus_attributes].map{|i| i[:subtotal]}
+      total_values = params[:order]["total"]
+      all_values = all_menu_id.zip(all_menu_quantity,all_subtotal) 
+      all_values.each do |menu_id,quantity,subtotal|
+        OrderMenu.create(menu_id: menu_id ,order_id:  @order.id,quantity: quantity,subtotal: subtotal,total: total_values)
       end
       redirect_to @order
     else
@@ -54,8 +56,7 @@ class OrdersController < ApplicationController
   private 
 
     def order_params
-      binding.pry
       params["order"]["menus_attributes"].delete_if{|m| m["menu_selected"] == "false"}
-      params.permit(:shop_id, menus_attributes: [:menu_id, :quantity])
+      params.permit(:shop_id, menus_attributes: [:menu_id, :quantity, :subtotal, :total])
     end
 end

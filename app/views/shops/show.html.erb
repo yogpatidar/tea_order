@@ -21,29 +21,42 @@
       </thead>
       <tbody>
         <%= form_with model: @order do |f| %>
-        <% @menus.each do |menu| %>
-          <tr class="row-select cart">
-            <td class="get_menu_name"><%= menu.name  %></td>
-            <td class="get_menu_price price"><%= menu.price %></td>
-            <td><%= f.check_box "menus_attributes[][menu_selected]", {}, 'true', 'false'%>
-            <%= f.hidden_field "menus_attributes[][menu_id]", value: menu.id %></td> 
-            <td> <%= f.number_field "menus_attributes[][quantity]",class: 'qty', value: 0%></td> 
-
-            <td> <span class="subtotal"><%= f.hidden_field "menus_attributes[][subtotal]" %>0</span></td>    
-             
-            <td class="get_shop_id"><%= hidden_field_tag 'shop_id', @shop.id  %></td>
+          <% @menus.each do |menu| %>
+            <tr class="row-select cart">
+              <td class="get_menu_name">
+                <%= menu.name  %>
+               </td>
+              <td class="get_menu_price price">
+                <%= menu.price %>
+              </td>
+              <td>
+                <%= f.check_box "menus_attributes[][menu_selected]", {}, 'true', 'false'%>
+                <%= f.hidden_field "menus_attributes[][menu_id]", value: menu.id %>
+              </td> 
+              <td>
+                <%= f.number_field "menus_attributes[][quantity]",class: 'qty', value: 0 %>
+              </td>
+              <td>
+                <span class="subtotal">0
+                </span>
+                <%= f.hidden_field "menus_attributes[][subtotal]", class: 'subTotalInput' %>
+              </td>
+              <td class="get_shop_id">
+                <%= hidden_field_tag 'shop_id', @shop.id  %>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td><span>Total</span></td>
+            <td><span></span></td>
+            <td><span></span></td>
+            <td><span></span></td>
+            <td>
+              <span id="total">0</span>
+              <%= f.hidden_field :total, value: 0, id: 'hiddenTotal'%>
+            </td>
           </tr>
-        <% end %>
-          
-        <tr>
-          <td><span>Total</span></td>
-          <td><span></span></td>
-          <td><span></span></td>
-          <td><span></span></td>
-
-          <td><span id="total">0</span></td>
-        </tr>
-        <%= f.submit 'Order' %>
+          <%= f.submit 'Order' %>
         <% end %>
       </tbody>
     </table>
@@ -66,6 +79,7 @@ $("input:checkbox").change(function() {
       var subtotal = $('.subtotal', cartRow);
       var linePrice = price * quantity;
       $(subtotal).text(linePrice.toFixed(2));
+      $(".subTotalInput", cartRow).val(linePrice.toFixed(2));
       total_calculate() //call
     }
 
@@ -78,7 +92,8 @@ $("input:checkbox").change(function() {
         total += value; //add that value
       })
       //assign to total span
-      $("#total").text(total.toFixed(2))
+      $("span#total").text(total.toFixed(2));
+      $("#hiddenTotal").val(total.toFixed(2));
     }
     total_calculate()
   }    
